@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".ui.home.view.AccountVerifyPhoneFragment">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:tint="@color/white"
+        app:backgroundTint="@color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/statusPhoneInvalid"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="40dp"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/card_bottom_phone"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_margin="3dp"
+                android:id="@+id/inputPhone"
+                style="@style/Widget.Shrine.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                android:hint="@string/account_hint_phone"
+                app:helperTextEnabled="true"
+                app:helperText="Ej 7XXXXXXX"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_bolivia_icon"
+                    android:maxLength="8"
+                    android:drawablePadding="3dp"
+                    android:inputType="phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:visibility="gone"
+                android:id="@+id/inputCode"
+                android:layout_gravity="center"
+                style="@style/Widget.Shrine.TextInputLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                android:hint="Code"
+                app:helperTextEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_phonelink_lock_24"
+                app:helperText="Codigo"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCode"
+                    android:layout_gravity="center"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:maxLength="6"
+                    android:drawablePadding="3dp"
+                    android:inputType="phone"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:visibility="gone"
+                android:id="@+id/btnVerifyPhone"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                style="@style/Widget.Shrine.Button"
+                android:text="Aceptar"
+                android:layout_height="wrap_content"/>
+            <com.google.android.material.button.MaterialButton
+                android:visibility="gone"
+                android:id="@+id/btnVerifyCode"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                style="@style/Widget.Shrine.Button"
+                android:text="@string/register_verification_code"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:id="@+id/layoutLoader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:text="Verificando..."/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

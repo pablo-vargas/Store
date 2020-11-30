@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "48338269469",
+    "firebase_url": "https://foxdigital-store.firebaseio.com",
+    "project_id": "foxdigital-store",
+    "storage_bucket": "foxdigital-store.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48338269469:android:0a171a652ee5c603769df4",
+        "android_client_info": {
+          "package_name": "com.foxdigitaltech.store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48338269469-mivlrqtpgm73kr7lkp54nmcegd4hpnpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ENALTjp3efPYMlrYXCmcq_qUyBvtS_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48338269469-mivlrqtpgm73kr7lkp54nmcegd4hpnpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
