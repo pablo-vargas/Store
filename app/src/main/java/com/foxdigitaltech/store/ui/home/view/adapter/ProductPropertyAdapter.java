@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.home.model.ProductPropertyCart;
+import com.foxdigitaltech.store.shared.model.ProductPropertyCart;
 import com.google.android.material.chip.Chip;
 
 import java.util.List;

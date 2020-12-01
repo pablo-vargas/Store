@@ -47,4 +47,7 @@
     <string name="no_offers_found">Sin Ofertas</string>
     <string name="select_property">Seleccione</string>
     <string name="add_cart">añadir al carrito</string>
+    <string name="product_sale">Este producto se ha agotado</string>
+    <string name="orderBy">Ordenar por</string>
+
 </resources>

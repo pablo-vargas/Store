@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.home.model;
+package com.foxdigitaltech.store.shared.model;
 
 public class RouteDatabase {
     public String LIST_CATEGORIES = "/product/categories";
@@ -6,4 +6,7 @@ public class RouteDatabase {
     public String LIST_OFFERS = "/product/offers";
     public String LIST_ADDRESS ="/addresses/client";
     public String CART ="/shop/cart";
+    public String LIST_PRODUCTS ="/product/slug";
+    public String LIST_BRANDS ="/product/brands";
+
 }

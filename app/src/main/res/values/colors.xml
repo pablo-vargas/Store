@@ -23,4 +23,9 @@
     <color name="not_found">#F44336</color>
     <color name="colorSale">#FFFFFF</color>
  <color name="red">#DB1406</color>
+ <color name="colorWarning">#DBC92A</color>
+ <color name="colorSuccess">#4caf50</color>
+ <color name="colorDanger">#f44336</color>
+    <color name="transparentWhite">#C9FFFFFF</color>
+    <color name="aplicar_filter">#369BF4</color>
 </resources>

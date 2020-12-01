@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.home.model.Address;
+import com.foxdigitaltech.store.shared.model.Address;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
 
 import java.util.List;

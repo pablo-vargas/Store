@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.home.model;
+package com.foxdigitaltech.store.shared.model;
 
 import com.google.firebase.database.DataSnapshot;
 

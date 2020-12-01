@@ -1,11 +1,11 @@
-package com.foxdigitaltech.store.ui.home.model;
+package com.foxdigitaltech.store.shared.model;
 
 import com.google.firebase.database.DataSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product {
+public class Product implements Comparable<Product>{
     private String key;
     private String name;
     private String slug;
@@ -155,5 +155,16 @@ public class Product {
 
     public void setVentas(int ventas) {
         this.ventas = ventas;
+    }
+
+    @Override
+    public int compareTo(Product product) {
+        if(this.price< product.getPrice()){
+             return -1;
+        }else if(this.price > product.getPrice()){
+            return  1;
+        }else{
+            return 0;
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.home.view.adapter;
+package com.foxdigitaltech.store.ui.product.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +16,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder>{
+public class ProductAllAdapter extends RecyclerView.Adapter<ProductAllAdapter.ViewHolder>{
 
     List<Product> products;
-    ProductAdapter.Listener listener;
+    ProductAllAdapter.Listener listener;
 
-    public ProductAdapter(List<Product> products,ProductAdapter.Listener listener) {
+    public ProductAllAdapter(List<Product> products, ProductAllAdapter.Listener listener) {
         this.products = products;
         this.listener = listener;
     }
@@ -29,7 +29,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_product_all,parent,false);
         return new ViewHolder(view);
     }
 

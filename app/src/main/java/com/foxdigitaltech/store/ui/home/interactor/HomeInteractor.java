@@ -5,9 +5,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
-import com.foxdigitaltech.store.ui.home.model.Category;
-import com.foxdigitaltech.store.ui.home.model.Product;
-import com.foxdigitaltech.store.ui.home.model.RouteDatabase;
+import com.foxdigitaltech.store.shared.model.Category;
+import com.foxdigitaltech.store.shared.model.Product;
+import com.foxdigitaltech.store.shared.model.RouteDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

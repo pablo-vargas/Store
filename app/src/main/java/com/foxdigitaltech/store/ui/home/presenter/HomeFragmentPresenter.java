@@ -4,11 +4,7 @@ package com.foxdigitaltech.store.ui.home.presenter;
 
 import com.foxdigitaltech.store.ui.home.contract.HomeFragmentContract;
 import com.foxdigitaltech.store.ui.home.interactor.HomeFragmentInteractor;
-import com.foxdigitaltech.store.ui.home.model.Category;
-import com.foxdigitaltech.store.ui.home.model.Product;
-import com.foxdigitaltech.store.ui.home.model.ProductCart;
-
-import java.util.List;
+import com.foxdigitaltech.store.shared.model.ProductCart;
 
 public class HomeFragmentPresenter implements HomeFragmentContract.Listener {
 

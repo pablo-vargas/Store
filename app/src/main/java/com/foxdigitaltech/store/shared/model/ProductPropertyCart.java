@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.home.model;
+package com.foxdigitaltech.store.shared.model;
 
 public class ProductPropertyCart {
     private boolean select ;

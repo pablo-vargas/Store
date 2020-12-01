@@ -1,6 +1,4 @@
-package com.foxdigitaltech.store.ui.home.model;
-
-import java.util.List;
+package com.foxdigitaltech.store.shared.model;
 
 public class ProductCart {
     private String key;

@@ -2,7 +2,6 @@ package com.foxdigitaltech.store.ui.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -12,14 +11,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.account.view.LoginFragment;
 import com.foxdigitaltech.store.ui.account.view.RegisterFragment;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
-import com.foxdigitaltech.store.ui.home.model.Category;
-import com.foxdigitaltech.store.ui.home.model.Product;
+import com.foxdigitaltech.store.shared.model.Category;
+import com.foxdigitaltech.store.shared.model.Product;
 import com.foxdigitaltech.store.ui.home.presenter.HomePresenter;
 import com.foxdigitaltech.store.ui.home.view.AccountAddressFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountLoginFragment;
@@ -27,6 +24,7 @@ import com.foxdigitaltech.store.ui.home.view.AccountProfileFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountVerifyPhoneFragment;
 import com.foxdigitaltech.store.ui.home.view.HomeFragment;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
+import com.foxdigitaltech.store.ui.product.view.ProductsFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -161,6 +159,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
      *                 9: Verify Phone
      *                 10: Profile
      *                 11: Address
+     *                 12: Products Category
      *                 101: Login
      * @param tag backStack
      */
@@ -174,6 +173,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 break;
             case 11:
                 fragmentManager.beginTransaction().replace(R.id.content_view,accountAddressFragment,"address").addToBackStack(tag).commit();
+                break;
+            case 12:
+                fragmentManager.beginTransaction().replace(R.id.content_view,new ProductsFragment(),"products").addToBackStack(tag).commit();
                 break;
             case 101:
                 fragmentManager.popBackStack();

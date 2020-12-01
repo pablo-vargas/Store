@@ -17,9 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.home.HomeActivity;
-import com.foxdigitaltech.store.ui.home.model.Address;
-import com.foxdigitaltech.store.ui.home.model.RouteDatabase;
+import com.foxdigitaltech.store.shared.model.Address;
+import com.foxdigitaltech.store.shared.model.RouteDatabase;
 import com.foxdigitaltech.store.ui.home.view.adapter.AddressAdapter;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
 import com.foxdigitaltech.store.ui.maps.AddressAddActivity;

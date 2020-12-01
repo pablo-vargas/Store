@@ -10,13 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.home.model.Category;
+import com.foxdigitaltech.store.shared.model.Category;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
     List<Category> list;
+    Listener listener;
+
+    public CategoryAdapter(List<Category> list, Listener listener) {
+        this.list = list;
+        this.listener = listener;
+    }
 
     public CategoryAdapter(List<Category> list) {
         this.list = list;
@@ -30,9 +37,15 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.ViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(list.get(position).getName());
         Picasso.get().load(list.get(position).getImage()).into(holder.image);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.clickCategory(list.get(position));
+            }
+        });
     }
 
     @Override
@@ -43,10 +56,15 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.ViewH
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView name;
         ImageView image;
+        MaterialCardView cardView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.textViewCategory);
             image = itemView.findViewById(R.id.imageCategory);
+            cardView = itemView.findViewById(R.id.cardView);
         }
+    }
+    public interface Listener{
+        void clickCategory(Category category);
     }
 }

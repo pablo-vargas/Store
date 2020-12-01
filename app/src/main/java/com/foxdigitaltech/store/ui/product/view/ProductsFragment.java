@@ -1,38 +1,51 @@
-package com.foxdigitaltech.store.ui.home.view;
+package com.foxdigitaltech.store.ui.product.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
 import com.foxdigitaltech.store.shared.CustomToast;
 import com.foxdigitaltech.store.shared.model.Brand;
-import com.foxdigitaltech.store.ui.home.HomeActivity;
-import com.foxdigitaltech.store.ui.home.contract.HomeFragmentContract;
-import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
 import com.foxdigitaltech.store.shared.model.ProductCart;
 import com.foxdigitaltech.store.shared.model.ProductCharacteristics;
 import com.foxdigitaltech.store.shared.model.ProductPropertyCart;
-import com.foxdigitaltech.store.ui.home.presenter.HomeFragmentPresenter;
-import com.foxdigitaltech.store.ui.home.view.adapter.CategoryAdapter;
-import com.foxdigitaltech.store.ui.home.view.adapter.ProductAdapter;
+import com.foxdigitaltech.store.ui.home.HomeActivity;
 import com.foxdigitaltech.store.ui.home.view.adapter.ProductPropertyAdapter;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
+import com.foxdigitaltech.store.ui.product.contract.ProductsContract;
+import com.foxdigitaltech.store.ui.product.presenter.ProductsPresenter;
+import com.foxdigitaltech.store.ui.product.view.adapter.ProductAllAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.squareup.picasso.Picasso;
@@ -40,30 +53,35 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements HomeFragmentContract.View, ProductAdapter.Listener,CategoryAdapter.Listener{
+public class ProductsFragment extends Fragment implements ProductsContract.View, ProductAllAdapter.Listener{
 
-    //Loader
-    RecyclerView recyclerView,recyclerViewOffres,recyclerViewBestSellers;
-    CategoryAdapter categoryAdapter;
-    ProductAdapter adapterOffers,adapterSales;
-    HomeViewModel viewModel;
-    TextView notFoundOffers;
+    private HomeViewModel viewModel;
+    private ProductsPresenter presenter;
+
+    private LinearLayout layoutLoader;
+    private RecyclerView recyclerView;
+    private ProductAllAdapter productAdapter;
 
 
-    private List<Category> categoryList;
-    private List<Product> listOffers,listBestSellers;
+    View viewFilter;
+    ChipGroup chipGroup;
+    List<Brand> brandList;
+    List<Product> products;
+    AlertDialog alertDialog;
 
-    public HomeFragment(List<Category> categoryList, List<Product> listOffers, List<Product> listBestSellers) {
-        this.categoryList = categoryList;
-        this.listOffers = listOffers;
-        this.listBestSellers = listBestSellers;
+
+
+    DisplayMetrics metrics = new DisplayMetrics();
+    public ProductsFragment() {
+        // Required empty public constructor
     }
 
-    private HomeFragmentPresenter presenter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
     }
 
@@ -71,72 +89,130 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_home, container, false);
-        notFoundOffers = view.findViewById(R.id.no_offers_found);
+        View view =  inflater.inflate(R.layout.fragment_products, container, false);
+        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
+        presenter = new ProductsPresenter(this);
+        initFilter();
+        setUpToolbar(view);
         init(view);
-        presenter = new HomeFragmentPresenter(this);
-        viewModel  = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
 
-       // presenter.getData();
-
-
+        presenter.start(viewModel.getCategory().getValue());
         return view;
+    }
+    private void init(View view){
+        layoutLoader = view.findViewById(R.id.layoutLoader);
+        recyclerView = view.findViewById(R.id.recyclerViewProducts);
+
+        int columns = getActivity().getResources().getConfiguration().screenWidthDp/180;
+        if(columns == 1){
+            columns = 2;
+        }
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),columns);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+    }
+    private void initFilter(){
+        viewFilter = LayoutInflater.from(getContext()).inflate(R.layout.layout_product_filters,null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        chipGroup = viewFilter.findViewById(R.id.chipGroup);
+        final Spinner spinner = viewFilter.findViewById(R.id.spinner);
+        MaterialButton btnCancel,btnAplicar;
+
+        btnAplicar = viewFilter.findViewById(R.id.btnAplicar);
+        btnCancel = viewFilter.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.cancel();
+            }
+        });
+        chipGroup.setClickable(true);
+
+
+
+        final List<String> listSpinner = new ArrayList<>();
+        listSpinner.add("Default");
+        listSpinner.add("Nombre");
+        listSpinner.add("Precio");
+        spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listSpinner));
+
+        btnAplicar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               try {
+                   String compare = "";
+                   for (int pos : chipGroup.getCheckedChipIds()) {
+                       compare += brandList.get(pos).getSlug() + " ";
+                   }
+                   presenter.filter(products, brandList, compare, spinner.getSelectedItem().toString());
+                   alertDialog.cancel();
+               }catch (IndexOutOfBoundsException e){
+                   Log.d("ERRORCHIP",e.getMessage());
+               }
+            }
+        });
+        builder.setView(viewFilter);
+        alertDialog = builder.create();
 
     }
-
-    private void init(View view) {
-        recyclerView = view.findViewById(R.id.recycler_view_categorias);
-        recyclerViewOffres = view.findViewById(R.id.recycler_view_offers);
-        recyclerViewBestSellers = view.findViewById(R.id.recycler_view_bestSellers);
-
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getActivity());
-        layoutManager1.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerViewBestSellers.setLayoutManager(layoutManager1);
-        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity());
-        layoutManager2.setOrientation(RecyclerView.HORIZONTAL);
-        recyclerViewOffres.setLayoutManager(layoutManager2);
-        categoryAdapter = new CategoryAdapter(categoryList,this);
-        recyclerView.setAdapter(categoryAdapter);
-
-        adapterOffers = new ProductAdapter(listOffers,this);
-        adapterSales = new ProductAdapter(listBestSellers, this);
-
-        recyclerViewOffres.setAdapter(adapterOffers);
-        recyclerViewBestSellers.setAdapter(adapterSales);
-
-        if(listOffers.size() > 0){
-            recyclerViewOffres.setVisibility(View.VISIBLE);
-            notFoundOffers.setVisibility(View.GONE);
-        }else{
-            recyclerViewOffres.setVisibility(View.GONE);
-            notFoundOffers.setVisibility(View.VISIBLE);
+    private void setUpToolbar(View view) {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null) {
+            activity.setSupportActionBar(toolbar);
+            toolbar.setTitle(viewModel.getCategory().getValue().getName());
         }
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, menuInflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.filter:
+                alertDialog.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void showLoader() {
-        //viewModel.setVisibilityBottomNavigation(View.GONE);
+        layoutLoader.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoader() {
-        //viewModel.setVisibilityBottomNavigation(View.VISIBLE);
+        layoutLoader.setVisibility(View.GONE);
     }
 
-
+    @Override
+    public void products(List<Product> productList) {
+        this.products = productList;
+    }
 
     @Override
-    public void hasError(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void brands(List<Brand> brandList) {
+        this.brandList = brandList;
+        int c = 0;
+        for (Brand brand:brandList){
+            Chip chip = new Chip(getContext());
+            chip.setId(c);
+            c++;
+            chip.setText(brand.getName());
+            chip.setCheckable(true);
+            chipGroup.addView(chip);
+        }
+    }
+
+    @Override
+    public void setProductsFilter(List<Product> productList) {
+        productAdapter = new ProductAllAdapter(productList,this);
+        recyclerView.setAdapter( productAdapter);
     }
 
     @Override
@@ -160,7 +236,6 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
             signIn();
         }
     }
-
     private void selectProperty(Product productCart){
         final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         View view = LayoutInflater.from(getContext()).inflate(R.layout.bottombar_product_property,null);
@@ -237,11 +312,5 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
                 })
                 .create()
                 .show();
-    }
-
-    @Override
-    public void clickCategory(Category category) {
-        viewModel.setCategory(category);
-        ((HomeActivity)getActivity()).changeFragment(12,"main");
     }
 }

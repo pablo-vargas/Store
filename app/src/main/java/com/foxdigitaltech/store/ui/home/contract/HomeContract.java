@@ -1,7 +1,7 @@
 package com.foxdigitaltech.store.ui.home.contract;
 
-import com.foxdigitaltech.store.ui.home.model.Category;
-import com.foxdigitaltech.store.ui.home.model.Product;
+import com.foxdigitaltech.store.shared.model.Category;
+import com.foxdigitaltech.store.shared.model.Product;
 
 import java.util.List;
 
