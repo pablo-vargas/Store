@@ -34,23 +34,27 @@ public class CartInteractor {
     }
 
     public void start(){
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<ProductCart> productCarts = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    productCarts.add(new ProductCart(dataSnapshot));
+        if(user != null) {
+            ValueEventListener valueEventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<ProductCart> productCarts = new ArrayList<>();
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        productCarts.add(new ProductCart(dataSnapshot));
+                    }
+                    listener.products(productCarts);
                 }
-                listener.products(productCarts);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        databaseReference.child(routeDatabase.CART).child(user.getUid()).child("products").addListenerForSingleValueEvent(valueEventListener);
-        getAddress();
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.d("USERNULL", error.getMessage());
+                }
+            };
+            databaseReference.child(routeDatabase.CART).child(user.getUid()).child("products").addListenerForSingleValueEvent(valueEventListener);
+            getAddress();
+        }else{
+            listener.products(new ArrayList<ProductCart>());
+        }
     }
 
     public void removeProduct(String key){

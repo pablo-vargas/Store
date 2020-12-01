@@ -1,5 +1,6 @@
 package com.foxdigitaltech.store.ui.shop.view;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,15 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
 import com.foxdigitaltech.store.shared.model.Address;
 import com.foxdigitaltech.store.shared.model.ProductCart;
+import com.foxdigitaltech.store.ui.home.HomeActivity;
 import com.foxdigitaltech.store.ui.shop.contract.CartContract;
 import com.foxdigitaltech.store.ui.shop.presenter.CartPresenter;
 import com.foxdigitaltech.store.ui.shop.view.adapter.ShoppingCartAdapter;
@@ -45,9 +49,11 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
     TextView count,subTotal,total,delivery;
     MaterialButton btnAddAddress,btnOrder;
     ProgressBar checkLoader;
+    Location locationStore = new Location("Punto A");
+    Location locationDelivery = new Location("Punto B");
 
-    //COORDENADAS A CALCULAR -19.05163, -65.26676
-    //PAGE https://es.stackoverflow.com/questions/29313/calcular-distancia-entre-dos-coordenadas-android
+    //COORDENADAS A CALCULAR ,
+    //PAGE
     public CartFragment() {
         // Required empty public constructor
     }
@@ -64,6 +70,8 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+        locationStore.setLatitude(-19.05163);
+        locationStore.setLongitude(-65.26676);
         init(view);
         initCheckOrder();
         presenter = new CartPresenter(this);
@@ -83,8 +91,7 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             @Override
             public void onClick(View view) {
                 if(cartAdapter.get().size() > 0){
-                    bottomSheetDialog.setContentView(viewCheckOrder);
-                    bottomSheetDialog.show();
+                    calculatePrice();
                 }else{
                     checkCart();
                 }
@@ -103,6 +110,41 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
         total = viewCheckOrder.findViewById(R.id.textViewTotal);
         delivery = viewCheckOrder.findViewById(R.id.textViewPriceDelivery);
 
+        btnAddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((HomeActivity)getActivity()).changeFragment(11,"cart");
+                bottomSheetDialog.cancel();
+            }
+        });
+
+        spinnerAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Double subTotalPrice = Double.valueOf(subTotal.getText().toString());
+                locationDelivery.setLatitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLatitude());
+                locationDelivery.setLongitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLongitude());
+                float distance = locationStore.distanceTo(locationDelivery);
+                if(distance <= 600){
+                    delivery.setText("5");
+                    total.setText((subTotalPrice+5)+"0");
+                }else if(distance > 600 && distance <=2000){
+                    delivery.setText("8");
+                    total.setText((subTotalPrice+8)+"0");
+                }else if(distance >2000 && distance <3500){
+                    delivery.setText("12");
+                    total.setText((subTotalPrice+12)+"0");
+                }else {
+                    delivery.setText("15");
+                    total.setText((subTotalPrice+15)+"0");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
     }
 
@@ -135,11 +177,12 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
 
     @Override
     public void address(List<Address> addresses) {
+
+        addressList = addresses;
         if(addresses.size()> 0){
             spinnerAddress.setVisibility(View.VISIBLE);
             btnAddAddress.setVisibility(View.GONE);
             List<String> list = new ArrayList<>();
-            addressList = addresses;
             for(Address address : addresses){
                 list.add(address.getName());
             }
@@ -158,5 +201,44 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             cartEmpty.setVisibility(View.GONE);
             btnCheckOrder.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void calculatePrice(){
+
+        Double subTotalPrice = 0d;
+        int countProduct =0 ;
+        for (ProductCart productCart: cartAdapter.get()){
+            subTotalPrice += (productCart.getPrice() * productCart.getQuantity());
+            countProduct += productCart.getQuantity();
+        }
+        count.setText(countProduct+"");
+        subTotal.setText(subTotalPrice+"0");
+        total.setText((subTotalPrice+10)+"0");
+
+        if(addressList.size() > 0) {
+            btnOrder.setEnabled(true);
+            locationDelivery.setLatitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLatitude());
+            locationDelivery.setLongitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLongitude());
+            float distance = locationStore.distanceTo(locationDelivery);
+
+            if(distance <= 600){
+                delivery.setText("5");
+                total.setText((subTotalPrice+5)+"0");
+            }else if(distance > 600 && distance <=2000){
+                delivery.setText("8");
+                total.setText((subTotalPrice+8)+"0");
+            }else if(distance >2000 && distance <3500){
+                delivery.setText("12");
+                total.setText((subTotalPrice+12)+"0");
+            }else {
+                delivery.setText("15");
+                total.setText((subTotalPrice+15)+"0");
+            }
+        }else{
+            btnOrder.setEnabled(false);
+        }
+
+        bottomSheetDialog.setContentView(viewCheckOrder);
+        bottomSheetDialog.show();
     }
 }
