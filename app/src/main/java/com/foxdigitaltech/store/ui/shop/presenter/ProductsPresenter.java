@@ -1,11 +1,11 @@
-package com.foxdigitaltech.store.ui.product.presenter;
+package com.foxdigitaltech.store.ui.shop.presenter;
 
 import com.foxdigitaltech.store.shared.model.Brand;
 import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
 import com.foxdigitaltech.store.shared.model.ProductCart;
-import com.foxdigitaltech.store.ui.product.contract.ProductsContract;
-import com.foxdigitaltech.store.ui.product.interactor.ProductsInteractor;
+import com.foxdigitaltech.store.ui.shop.contract.ProductsContract;
+import com.foxdigitaltech.store.ui.shop.interactor.ProductsInteractor;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.product.model;
+package com.foxdigitaltech.store.ui.shop.model;
 
 import com.foxdigitaltech.store.shared.model.Product;
 

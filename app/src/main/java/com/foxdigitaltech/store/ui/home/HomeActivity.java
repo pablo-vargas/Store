@@ -24,7 +24,8 @@ import com.foxdigitaltech.store.ui.home.view.AccountProfileFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountVerifyPhoneFragment;
 import com.foxdigitaltech.store.ui.home.view.HomeFragment;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
-import com.foxdigitaltech.store.ui.product.view.ProductsFragment;
+import com.foxdigitaltech.store.ui.shop.view.CartFragment;
+import com.foxdigitaltech.store.ui.shop.view.ProductsFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -91,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                         fragmentManager.beginTransaction().replace(R.id.content_view,homeFragment,"main").commit();
                         break;
                     case R.id.navigation_cart:
-                        fragmentManager.beginTransaction().replace(R.id.content_view,new RegisterFragment()).addToBackStack("main").commit();
+                        changeFragment(13,"main");
                         break;
                     case R.id.navigation_account:
                         //
@@ -160,6 +161,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
      *                 10: Profile
      *                 11: Address
      *                 12: Products Category
+     *                 13: Cart
      *                 101: Login
      * @param tag backStack
      */
@@ -176,6 +178,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 break;
             case 12:
                 fragmentManager.beginTransaction().replace(R.id.content_view,new ProductsFragment(),"products").addToBackStack(tag).commit();
+                break;
+            case 13:
+                fragmentManager.beginTransaction().replace(R.id.content_view,new CartFragment(),"cart").addToBackStack(tag).commit();
                 break;
             case 101:
                 fragmentManager.popBackStack();

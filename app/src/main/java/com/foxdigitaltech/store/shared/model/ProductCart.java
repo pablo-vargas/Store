@@ -1,5 +1,7 @@
 package com.foxdigitaltech.store.shared.model;
 
+import com.google.firebase.database.DataSnapshot;
+
 public class ProductCart {
     private String key;
     private String code;
@@ -36,7 +38,19 @@ public class ProductCart {
         this.quantity = 1;
         this.price = product.getPrice();
         this.property = property;
-
+    }
+    public ProductCart(DataSnapshot snapshot){
+        this.key = snapshot.getKey();
+        this.code = snapshot.child("code").getValue().toString();
+        this.name = snapshot.child("name").getValue().toString();
+        this.slug = snapshot.child("slug").getValue().toString();
+        this.image  = snapshot.child("image").getValue().toString();
+        this.brand = snapshot.child("brand").getValue().toString();
+        this.badge = snapshot.child("badge").getValue().toString();
+        this.category = snapshot.child("category").getValue().toString();
+        this.quantity = Integer.parseInt(snapshot.child("quantity").getValue().toString());
+        this.price = Double.valueOf(snapshot.child("price").getValue().toString());
+        this.property = snapshot.child("property").getValue().toString();
     }
 
     public String getProperty() {

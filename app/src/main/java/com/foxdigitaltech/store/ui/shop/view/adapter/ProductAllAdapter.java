@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.product.view.adapter;
+package com.foxdigitaltech.store.ui.shop.view.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

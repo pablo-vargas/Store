@@ -1,6 +1,4 @@
-package com.foxdigitaltech.store.ui.product.interactor;
-
-import android.util.Log;
+package com.foxdigitaltech.store.ui.shop.interactor;
 
 import androidx.annotation.NonNull;
 
@@ -9,8 +7,8 @@ import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
 import com.foxdigitaltech.store.shared.model.ProductCart;
 import com.foxdigitaltech.store.shared.model.RouteDatabase;
-import com.foxdigitaltech.store.ui.product.contract.ProductsContract;
-import com.foxdigitaltech.store.ui.product.model.NombreComparator;
+import com.foxdigitaltech.store.ui.shop.contract.ProductsContract;
+import com.foxdigitaltech.store.ui.shop.model.NombreComparator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ProductsInteractor {

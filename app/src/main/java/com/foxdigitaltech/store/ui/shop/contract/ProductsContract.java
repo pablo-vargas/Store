@@ -1,4 +1,4 @@
-package com.foxdigitaltech.store.ui.product.contract;
+package com.foxdigitaltech.store.ui.shop.contract;
 
 import com.foxdigitaltech.store.shared.model.Brand;
 import com.foxdigitaltech.store.shared.model.Product;

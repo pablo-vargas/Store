@@ -49,5 +49,10 @@
     <string name="add_cart">añadir al carrito</string>
     <string name="product_sale">Este producto se ha agotado</string>
     <string name="orderBy">Ordenar por</string>
+    <string name="shopping_cart">Carrito de Compras</string>
+    <string name="checkout">Realizar pedido</string>
+    <string name="cart_empty">Carrito Vacio</string>
+    <string name="address">Seleccione una ubicacion</string>
+    <string name="address_add">Añadir una direccion</string>
 
 </resources>
