@@ -1,13 +1,20 @@
 package com.foxdigitaltech.store.ui.shop.interactor;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.foxdigitaltech.store.shared.model.Address;
+import com.foxdigitaltech.store.shared.model.Order;
 import com.foxdigitaltech.store.shared.model.ProductCart;
 import com.foxdigitaltech.store.shared.model.RouteDatabase;
+import com.foxdigitaltech.store.ui.register.model.UserProfile;
 import com.foxdigitaltech.store.ui.shop.contract.CartContract;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CartInteractor {
@@ -87,6 +95,39 @@ public class CartInteractor {
             }
         };
         databaseReference.child(routeDatabase.LIST_ADDRESS).child(user.getUid()).addListenerForSingleValueEvent(valueEventListener);
+    }
+
+
+    public void checkOrder(int quantity,Double total,int delivery,Address address,List<ProductCart> productCarts){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            if(user.getPhoneNumber() != null){
+                UserProfile userProfile = new UserProfile(user.getDisplayName(),"",user.getPhoneNumber(),user.getEmail());
+                Order order = new Order(userProfile,productCarts,address,quantity,delivery,total,new Date().getTime(),"pending");
+                databaseReference.child(routeDatabase.CREATE_ORDER).child(user.getUid()).push().setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        listener.successOrder();
+                        databaseReference.child(routeDatabase.CART).child(user.getUid()).removeValue();
+                        listener.products(new ArrayList<ProductCart>());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        listener.hasError("Error al realizar orden del pedido");
+                    }
+                }).addOnCanceledListener(new OnCanceledListener() {
+                    @Override
+                    public void onCanceled() {
+                        listener.hasError("Error de conexion");
+                    }
+                });
+            }else{
+                listener.hasError("Debe verificar su numero de telefono, perfil inválido");
+            }
+
+        }else{
+            listener.hasError("No se encontro el usuario.");
+        }
     }
 
 }

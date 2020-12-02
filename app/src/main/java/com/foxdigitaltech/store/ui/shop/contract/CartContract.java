@@ -12,9 +12,16 @@ public interface CartContract {
         void hideLoader();
         void products(List<ProductCart> list);
         void address(List<Address> addresses);
+
+        void loaderOrder();
+        void hideLoaderOrder();
+        void successOrder();
+        void hasError(String message);
     }
     interface Listener{
         void products(List<ProductCart> list);
         void address(List<Address> addresses);
+        void successOrder();
+        void hasError(String message);
     }
 }

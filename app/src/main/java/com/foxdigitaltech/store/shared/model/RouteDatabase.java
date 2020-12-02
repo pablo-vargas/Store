@@ -8,5 +8,6 @@ public class RouteDatabase {
     public String CART ="/shop/cart";
     public String LIST_PRODUCTS ="/product/slug";
     public String LIST_BRANDS ="/product/brands";
+    public String CREATE_ORDER ="/shop/order";
 
 }

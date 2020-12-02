@@ -143,10 +143,8 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
     public void addCart(Product product) {
         if(viewModel.getUserAuth().getValue()){
             if(product.getBadge().equals("sale")){
-                //Toast toast =  Toast.makeText(getContext(),R.string.product_sale,Toast.LENGTH_SHORT);
                 Toast customToast = new CustomToast().custom(getContext(),"warning",product.getName()+" se ha agotado");
                 customToast.setDuration(Toast.LENGTH_SHORT);
-                //customToast.setGravity(Gravity.TOP|Gravity.RIGHT,0,0);
                 customToast.show();
             }else if(product.getCharacteristics() != null){
                 selectProperty(product);

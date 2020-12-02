@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
+import com.foxdigitaltech.store.shared.CustomToast;
 import com.foxdigitaltech.store.shared.model.Address;
 import com.foxdigitaltech.store.shared.model.ProductCart;
 import com.foxdigitaltech.store.ui.home.HomeActivity;
@@ -52,10 +53,8 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
     Location locationStore = new Location("Punto A");
     Location locationDelivery = new Location("Punto B");
 
-    //COORDENADAS A CALCULAR ,
-    //PAGE
     public CartFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -115,6 +114,21 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             public void onClick(View view) {
                 ((HomeActivity)getActivity()).changeFragment(11,"cart");
                 bottomSheetDialog.cancel();
+            }
+        });
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    presenter.checkOrder(
+                            Integer.parseInt(count.getText().toString()),
+                            Double.valueOf(total.getText().toString()),
+                            Integer.parseInt(delivery.getText().toString()),
+                            addressList.get(spinnerAddress.getSelectedItemPosition()),
+                            cartAdapter.get());
+                }catch (Exception e){
+                    hasError("Error al enviar el formulario");
+                }
             }
         });
 
@@ -193,6 +207,34 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
         }
     }
 
+    @Override
+    public void loaderOrder() {
+        checkLoader.setVisibility(View.VISIBLE);
+        btnOrder.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideLoaderOrder() {
+        checkLoader.setVisibility(View.GONE);
+        btnOrder.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void successOrder() {
+        bottomSheetDialog.cancel();
+
+        Toast customToast = new CustomToast().custom(getContext(),"success","Orden registrada correctamente");
+        customToast.setDuration(Toast.LENGTH_SHORT);
+        customToast.show();
+    }
+
+    @Override
+    public void hasError(String message) {
+        Toast customToast = new CustomToast().custom(getContext(),"error",message);
+        customToast.setDuration(Toast.LENGTH_SHORT);
+        customToast.show();
+    }
+
     private void checkCart(){
         if (cartAdapter.get().size() <=0){
             cartEmpty.setVisibility(View.VISIBLE);
@@ -241,4 +283,5 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
         bottomSheetDialog.setContentView(viewCheckOrder);
         bottomSheetDialog.show();
     }
+
 }

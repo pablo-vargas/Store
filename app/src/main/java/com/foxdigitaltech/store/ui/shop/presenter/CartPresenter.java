@@ -28,6 +28,11 @@ public class CartPresenter implements CartContract.Listener {
         interactor.addSubProduct(productCart,value);
     }
 
+    public void checkOrder(int quantity,Double total,int delivery,Address address,List<ProductCart> productCarts){
+        view.loaderOrder();
+        interactor.checkOrder(quantity, total, delivery, address,productCarts);
+    }
+
     @Override
     public void products(List<ProductCart> list) {
         view.hideLoader();
@@ -37,5 +42,17 @@ public class CartPresenter implements CartContract.Listener {
     @Override
     public void address(List<Address> addresses) {
         view.address(addresses);
+    }
+
+    @Override
+    public void successOrder() {
+        view.hideLoaderOrder();
+        view.successOrder();
+    }
+
+    @Override
+    public void hasError(String message) {
+        view.hideLoaderOrder();
+        view.hasError(message);
     }
 }
