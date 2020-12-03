@@ -84,6 +84,12 @@ public class AccountProfileFragment extends Fragment implements ProfileContract.
                 ((HomeActivity)getActivity()).changeFragment(11,"profile");
             }
         });
+        cardRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((HomeActivity)getActivity()).changeFragment(14,"profile");
+            }
+        });
     }
 
     @Override

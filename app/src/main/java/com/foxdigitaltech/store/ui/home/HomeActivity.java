@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.account.view.RegisterFragment;
+import com.foxdigitaltech.store.ui.account.view.UserHistoryFragment;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
 import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
@@ -162,6 +162,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
      *                 11: Address
      *                 12: Products Category
      *                 13: Cart
+     *                 14: Order History
      *                 101: Login
      * @param tag backStack
      */
@@ -181,6 +182,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
                 break;
             case 13:
                 fragmentManager.beginTransaction().replace(R.id.content_view,new CartFragment(),"cart").addToBackStack(tag).commit();
+                break;
+            case 14:
+                fragmentManager.beginTransaction().replace(R.id.content_view,new UserHistoryFragment(),"order").addToBackStack(tag).commit();
                 break;
             case 101:
                 fragmentManager.popBackStack();

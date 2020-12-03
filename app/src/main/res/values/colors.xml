@@ -28,4 +28,5 @@
  <color name="colorDanger">#f44336</color>
     <color name="transparentWhite">#C9FFFFFF</color>
     <color name="aplicar_filter">#369BF4</color>
+    <color name="show">#1D71D6</color>
 </resources>

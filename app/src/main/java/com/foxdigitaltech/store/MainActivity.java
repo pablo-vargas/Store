@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.foxdigitaltech.store.ui.account.AccountActivity;
 import com.foxdigitaltech.store.ui.home.HomeActivity;
 
 public class MainActivity extends AppCompatActivity {

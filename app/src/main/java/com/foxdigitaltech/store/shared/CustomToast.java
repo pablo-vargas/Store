@@ -17,7 +17,7 @@ public class CustomToast {
 
     /**
      *
-      * @param context
+      * @param context context
      * @param icon 'success'|
      *             'error'|
      *             'warning'

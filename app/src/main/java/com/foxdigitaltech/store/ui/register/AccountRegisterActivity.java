@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.account.view.RegisterFragment;
 import com.foxdigitaltech.store.ui.register.model.AccountViewModel;
 import com.foxdigitaltech.store.ui.register.view.AccountRegisterFragment;
 import com.foxdigitaltech.store.ui.register.view.VerificationPhoneFragment;

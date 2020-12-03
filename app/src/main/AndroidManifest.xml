@@ -20,9 +20,6 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.account.AccountActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

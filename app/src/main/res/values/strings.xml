@@ -54,5 +54,6 @@
     <string name="cart_empty">Carrito Vacio</string>
     <string name="address">Seleccione una ubicacion</string>
     <string name="address_add">Añadir una direccion</string>
+    <string name="user_history">Mis Pedidos</string>
 
 </resources>

@@ -61,11 +61,12 @@ public class ProductsFragment extends Fragment implements ProductsContract.View,
     private ProductAllAdapter productAdapter;
 
 
-    View viewFilter;
     ChipGroup chipGroup;
     List<Brand> brandList;
     List<Product> products;
     AlertDialog alertDialog;
+    View viewFilter;
+
 
 
 

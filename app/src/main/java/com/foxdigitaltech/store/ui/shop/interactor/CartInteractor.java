@@ -101,26 +101,30 @@ public class CartInteractor {
     public void checkOrder(int quantity,Double total,int delivery,Address address,List<ProductCart> productCarts){
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             if(user.getPhoneNumber() != null){
-                UserProfile userProfile = new UserProfile(user.getDisplayName(),"",user.getPhoneNumber(),user.getEmail());
-                Order order = new Order(userProfile,productCarts,address,quantity,delivery,total,new Date().getTime(),"pending");
-                databaseReference.child(routeDatabase.CREATE_ORDER).child(user.getUid()).push().setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        listener.successOrder();
-                        databaseReference.child(routeDatabase.CART).child(user.getUid()).removeValue();
-                        listener.products(new ArrayList<ProductCart>());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        listener.hasError("Error al realizar orden del pedido");
-                    }
-                }).addOnCanceledListener(new OnCanceledListener() {
-                    @Override
-                    public void onCanceled() {
-                        listener.hasError("Error de conexion");
-                    }
-                });
+                if(user.getPhoneNumber().isEmpty()){
+                    listener.hasError("Debe verificar su numero de telefono, perfil inválido");
+                }else{
+                    UserProfile userProfile = new UserProfile(user.getDisplayName(),"",user.getPhoneNumber(),user.getEmail());
+                    Order order = new Order(userProfile,productCarts,address,quantity,delivery,total,new Date().getTime(),"pending");
+                    databaseReference.child(routeDatabase.CREATE_ORDER).child(user.getUid()).push().setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            listener.successOrder();
+                            databaseReference.child(routeDatabase.CART).child(user.getUid()).removeValue();
+                            listener.products(new ArrayList<ProductCart>());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            listener.hasError("Error al realizar orden del pedido");
+                        }
+                    }).addOnCanceledListener(new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                            listener.hasError("Error de conexion");
+                        }
+                    });
+                }
             }else{
                 listener.hasError("Debe verificar su numero de telefono, perfil inválido");
             }

@@ -19,4 +19,6 @@
 
     <!-- Dimmens for images cut -->
     <dimen name="cut_bottom">50%</dimen>
+    <dimen name="spacing_middle">8dp</dimen>
+    <dimen name="spacing_medium">5dp</dimen>
 </resources>

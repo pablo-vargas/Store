@@ -9,5 +9,5 @@ public class RouteDatabase {
     public String LIST_PRODUCTS ="/product/slug";
     public String LIST_BRANDS ="/product/brands";
     public String CREATE_ORDER ="/shop/order";
-
+    public String USER_HISTORY ="/shop/userHistory";
 }
