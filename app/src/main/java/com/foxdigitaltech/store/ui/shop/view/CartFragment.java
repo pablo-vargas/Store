@@ -200,7 +200,7 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             for(Address address : addresses){
                 list.add(address.getName());
             }
-            spinnerAddress.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,list));
+            spinnerAddress.setAdapter(new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,list));
         }else{
             spinnerAddress.setVisibility(View.GONE);
             btnAddAddress.setVisibility(View.VISIBLE);

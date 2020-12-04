@@ -47,14 +47,13 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
     private final static int LOCATION_REQUEST_CODE = 1;
     private final static int SETTINGS_REQUEST_CODE = 2;
     private boolean isMoveCamera =false;
-    private GoogleMap map,mapMuestra;
-    private SupportMapFragment sMapFragment,mapFragmentMuestra;
+    private GoogleMap map;
+    private SupportMapFragment sMapFragment;
 
     View view;
     AlertDialog alertDialog;
 
     Address currentAddress;
-
 
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -84,7 +83,7 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
         }
     };
 
-    MaterialButton btnAddLocation,btnSave;
+    MaterialButton btnAddLocation,btnSave,btnSaveLocation;
     TextInputEditText textName,textStreet;
     LinearLayout layoutLoader;
 
@@ -103,9 +102,9 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
         int id = view.findViewById(R.id.map).getId();
         sMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(id);
 
-        mapFragmentMuestra = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapMuestra);
+        btnSaveLocation = view.findViewById(R.id.btnSaveLocation);
         sMapFragment.getMapAsync(this);
-        mapFragmentMuestra.getMapAsync(this);
+        //mapFragmentMuestra.getMapAsync(this);
         layoutLoader = findViewById(R.id.layoutLoader);
         textName = findViewById(R.id.editTextName);
         textStreet = findViewById(R.id.editTextStreet);
@@ -123,6 +122,13 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
                 saveAddress();
             }
         });
+        btnSaveLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
 
     }
 
@@ -295,10 +301,8 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        mapMuestra = googleMap;
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mapMuestra.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        map.setBuildingsEnabled(true);
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL|GoogleMap.MAP_TYPE_NONE);
+        //map.setBuildingsEnabled(true);
         map.getUiSettings().setZoomControlsEnabled(true);
         map.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition.Builder()
@@ -317,11 +321,8 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
             public void onMapClick(LatLng latLng) {
                 map.clear();
                 map.addMarker(new MarkerOptions().position(latLng).title(""));
-                mapMuestra.clear();
-                mapMuestra.addMarker(new MarkerOptions().position(latLng).title(""));
                 currentAddress.setStreetLatitude(latLng.latitude);
                 currentAddress.setStreetLongitude(latLng.longitude);
-                alertDialog.dismiss();
             }
         });
 

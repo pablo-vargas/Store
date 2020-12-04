@@ -18,7 +18,7 @@ import com.foxdigitaltech.store.ui.home.contract.HomeContract;
 import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
 import com.foxdigitaltech.store.ui.home.presenter.HomePresenter;
-import com.foxdigitaltech.store.ui.home.view.AccountAddressFragment;
+import com.foxdigitaltech.store.ui.maps.view.AccountAddressFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountLoginFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountProfileFragment;
 import com.foxdigitaltech.store.ui.home.view.AccountVerifyPhoneFragment;

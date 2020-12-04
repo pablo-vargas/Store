@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.view.AccountProfileFragment">
 
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -24,6 +25,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/title_account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -254,38 +267,7 @@
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTrackOrder"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginVertical="10dp"
-                android:checkable="true"
-                android:layout_marginHorizontal="50dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
 
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    >
-                    <TextView
-                        android:paddingHorizontal="5dp"
-                        android:drawableStart="@drawable/ic_baseline_local_taxi_24"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/trackMyOrder"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"/>
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardExit"
                 android:layout_width="match_parent"

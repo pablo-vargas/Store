@@ -19,7 +19,7 @@ import com.google.android.material.card.MaterialCardView;
 
 public class AccountProfileFragment extends Fragment implements ProfileContract.View {
 
-    MaterialCardView cardPhoneVerified,cardPhoneInvalid,cardProfile,cardAddress,cardRecord,cardTrack,cardExit;
+    MaterialCardView cardPhoneVerified,cardPhoneInvalid,cardProfile,cardAddress,cardRecord,cardExit;
     TextView textViewName;
 
     ProfilePresenter presenter;
@@ -46,7 +46,6 @@ public class AccountProfileFragment extends Fragment implements ProfileContract.
         cardPhoneVerified = view.findViewById(R.id.cardPhoneVerified);
         cardRecord = view.findViewById(R.id.cardRecord);
         cardProfile = view.findViewById(R.id.cardUpdateProfile);
-        cardTrack = view.findViewById(R.id.cardTrackOrder);
         textViewName = view.findViewById(R.id.textViewName);
 
 

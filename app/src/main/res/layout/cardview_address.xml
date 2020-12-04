@@ -25,6 +25,7 @@
                 android:layout_gravity="center"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                app:tint="@color/colorInfo"
                 android:src="@drawable/ic_baseline_map_24"
                 />
             <LinearLayout
@@ -52,14 +53,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center">
-                <ImageButton
-                    android:id="@+id/btnEditAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_edit_location_24"
-                    android:backgroundTint="@android:color/holo_blue_light"
-                    android:tint="@color/white"
-                    />
+
                 <ImageButton
                     android:id="@+id/btnTrashAddress"
                     android:layout_width="wrap_content"

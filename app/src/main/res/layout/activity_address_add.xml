@@ -44,7 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:startIconDrawable="@drawable/ic_baseline_map_24"
-                android:hint="Nombre"
+                app:helperText="Ej. Hogar, Oficina"
+                android:hint="Nombre de lugar"
                 android:layout_margin="10dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextName"
@@ -66,12 +67,7 @@
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <fragment
-                android:id="@+id/mapMuestra"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAddLocation"
                 android:layout_gravity="center"
