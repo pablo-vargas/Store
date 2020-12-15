@@ -1,17 +1,22 @@
 package com.foxdigitaltech.store.ui.home;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.foxdigitaltech.store.R;
 import com.foxdigitaltech.store.ui.account.view.UserHistoryFragment;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
@@ -38,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
 
     HomePresenter presenter;
 
-    RelativeLayout layoutLoader;
+    LottieAnimationView layoutLoader;
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment;
 
@@ -57,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         bottomNavigationView = findViewById(R.id.nav_view);
-        layoutLoader = findViewById(R.id.layoutLoader);
+        layoutLoader = findViewById(R.id.animation_view);
         BadgeDrawable badge = bottomNavigationView.getOrCreateBadge(R.id.navigation_cart);
         badge.setVisible(true);
         accountLoginFragment = new AccountLoginFragment();
@@ -82,29 +87,26 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         });
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id){
-                    case R.id.navigation_home:
-                        fragmentManager.popBackStack();
-                        fragmentManager.beginTransaction().replace(R.id.content_view,homeFragment,"main").commit();
-                        break;
-                    case R.id.navigation_cart:
-                        changeFragment(13,"main");
-                        break;
-                    case R.id.navigation_account:
-                        //
-                        if(viewModel.getUserAuth().getValue()){
-                            fragmentManager.beginTransaction().replace(R.id.content_view,accountProfileFragment,"profile").addToBackStack("main").commit();
-                        }else{
-                            fragmentManager.beginTransaction().replace(R.id.content_view,accountLoginFragment,"login").addToBackStack("main").commit();
-                        }
-                        break;
-                }
-                return true;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            switch (id){
+                case R.id.navigation_home:
+                    fragmentManager.popBackStack();
+                    fragmentManager.beginTransaction().replace(R.id.content_view,homeFragment,"main").commit();
+                    break;
+                case R.id.navigation_cart:
+                    changeFragment(13,"main");
+                    break;
+                case R.id.navigation_account:
+                    //
+                    if(viewModel.getUserAuth().getValue()){
+                        fragmentManager.beginTransaction().replace(R.id.content_view,accountProfileFragment,"profile").addToBackStack("main").commit();
+                    }else{
+                        fragmentManager.beginTransaction().replace(R.id.content_view,accountLoginFragment,"login").addToBackStack("main").commit();
+                    }
+                    break;
             }
+            return true;
         });
     }
 
@@ -151,6 +153,23 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void verifyAccount(boolean flag) {
         viewModel.setUser(flag);
+    }
+
+    @Override
+    public void isVersion(boolean valid) {
+        if(!valid){
+            new AlertDialog.Builder(this,R.style.Theme_AppCompat_Dialog_Alert)
+                    .setIcon(R.drawable.ic_baseline_update_24)
+                    .setTitle("Actualización")
+                    .setMessage("Existe una actualización disponible.")
+                    .setPositiveButton("Actualizar", (dialogInterface, i) -> {
+                        Intent intentNavegador = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName()));
+                        startActivity(intentNavegador);
+                    })
+                    .setCancelable(false)
+                    .create().show();
+        }
     }
 
     /**

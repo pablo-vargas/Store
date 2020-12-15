@@ -25,22 +25,15 @@
             android:paddingTop="16dp">
 
             <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="48dp"
                 android:layout_marginBottom="16dp"
                 android:contentDescription="@string/logo"
                 app:srcCompat="@drawable/ic_logo" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="60dp"
-                android:text="@string/shr_app_name"
-                android:textAllCaps="true"
-                android:textSize="16sp" />
+
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Shrine.TextInputLayout"

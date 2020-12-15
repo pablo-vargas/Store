@@ -32,12 +32,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3"
+            app:layout_constraintGuide_percent="0.25"
             />
 
         <com.google.android.material.button.MaterialButton
             app:shapeAppearanceOverlay="@style/buttonLeftRounded"
-            android:id="@+id/btn_products"
+            android:id="@+id/btnAbout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"
@@ -61,7 +61,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_products" />
+            app:layout_constraintTop_toBottomOf="@+id/btnAbout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:paddingStart="10dp"

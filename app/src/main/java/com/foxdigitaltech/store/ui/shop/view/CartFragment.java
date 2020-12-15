@@ -47,7 +47,8 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
     View viewCheckOrder;
     BottomSheetDialog bottomSheetDialog;
     Spinner spinnerAddress;
-    TextView count,subTotal,total,delivery;
+    TextView count,subTotal,total,delivery,customerDistance,customerAddress;
+    LinearLayout layoutCustomerAddress;
     MaterialButton btnAddAddress,btnOrder;
     ProgressBar checkLoader;
     Location locationStore = new Location("Punto A");
@@ -108,6 +109,9 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
         subTotal = viewCheckOrder.findViewById(R.id.textViewSubTotal);
         total = viewCheckOrder.findViewById(R.id.textViewTotal);
         delivery = viewCheckOrder.findViewById(R.id.textViewPriceDelivery);
+        customerDistance = viewCheckOrder.findViewById(R.id.textViewDistance);
+        customerAddress = viewCheckOrder.findViewById(R.id.textViewCustomerAddress);
+        layoutCustomerAddress = viewCheckOrder.findViewById(R.id.layoutAddress);
 
         btnAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +143,9 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                 locationDelivery.setLatitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLatitude());
                 locationDelivery.setLongitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLongitude());
                 float distance = locationStore.distanceTo(locationDelivery);
+                int d = (int) distance;
+                customerDistance.setText(d+" m.");
+                customerAddress.setText(addressList.get(i).getStreet());
                 if(distance <= 600){
                     delivery.setText("5");
                     total.setText((subTotalPrice+5)+"0");
@@ -194,7 +201,7 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
 
         addressList = addresses;
         if(addresses.size()> 0){
-            spinnerAddress.setVisibility(View.VISIBLE);
+            layoutCustomerAddress.setVisibility(View.VISIBLE);
             btnAddAddress.setVisibility(View.GONE);
             List<String> list = new ArrayList<>();
             for(Address address : addresses){
@@ -202,7 +209,7 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             }
             spinnerAddress.setAdapter(new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,list));
         }else{
-            spinnerAddress.setVisibility(View.GONE);
+            layoutCustomerAddress.setVisibility(View.GONE);
             btnAddAddress.setVisibility(View.VISIBLE);
         }
     }
@@ -262,7 +269,9 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             locationDelivery.setLatitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLatitude());
             locationDelivery.setLongitude(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreetLongitude());
             float distance = locationStore.distanceTo(locationDelivery);
-
+            int d = (int) distance;
+            customerDistance.setText(d+" m.");
+            customerAddress.setText(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreet());
             if(distance <= 600){
                 delivery.setText("5");
                 total.setText((subTotalPrice+5)+"0");

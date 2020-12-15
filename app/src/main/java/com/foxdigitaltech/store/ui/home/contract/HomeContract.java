@@ -14,6 +14,8 @@ public interface HomeContract {
         void listOffers(List<Product> products);
         void listBestSellers(List<Product> products);
         void verifyAccount(boolean flag);
+
+        void isVersion(boolean valid);
     }
 
     interface Listener{
@@ -22,5 +24,7 @@ public interface HomeContract {
         void listBestSellers(List<Product> products);
         void successData();
         void verifyAccount(boolean flag);
+
+        void isVersion(boolean valid);
     }
 }

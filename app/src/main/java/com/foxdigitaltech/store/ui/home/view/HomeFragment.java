@@ -1,7 +1,7 @@
 package com.foxdigitaltech.store.ui.home.view;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.foxdigitaltech.store.R;
 import com.foxdigitaltech.store.shared.CustomToast;
-import com.foxdigitaltech.store.shared.model.Brand;
+import com.foxdigitaltech.store.ui.about.AboutActivity;
 import com.foxdigitaltech.store.ui.home.HomeActivity;
 import com.foxdigitaltech.store.ui.home.contract.HomeFragmentContract;
 import com.foxdigitaltech.store.shared.model.Category;
@@ -33,7 +33,6 @@ import com.foxdigitaltech.store.ui.home.view.adapter.ProductPropertyAdapter;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.squareup.picasso.Picasso;
 
@@ -48,6 +47,7 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
     ProductAdapter adapterOffers,adapterSales;
     HomeViewModel viewModel;
     TextView notFoundOffers;
+    MaterialButton btnAbout;
 
 
     private List<Category> categoryList;
@@ -64,7 +64,6 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -88,7 +87,10 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
         recyclerView = view.findViewById(R.id.recycler_view_categorias);
         recyclerViewOffres = view.findViewById(R.id.recycler_view_offers);
         recyclerViewBestSellers = view.findViewById(R.id.recycler_view_bestSellers);
-
+        btnAbout = view.findViewById(R.id.btnAbout);
+        btnAbout.setOnClickListener(v->{
+            getActivity().startActivity(new Intent(getContext(), AboutActivity.class));
+        });
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);

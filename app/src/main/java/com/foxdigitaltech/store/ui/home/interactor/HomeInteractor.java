@@ -24,6 +24,7 @@ public class HomeInteractor {
     private FirebaseAuth firebaseAuth;
     private HomeContract.Listener callback;
     private int countData;
+    private static final int APP_VERSION =1;
 
     public HomeInteractor(HomeContract.Listener callback) {
         this.callback = callback;
@@ -116,6 +117,26 @@ public class HomeInteractor {
     private void completeInit(){
         if(countData > 2){
             callback.successData();
+            validateVersion();
         }
+    }
+
+    public void validateVersion(){
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int playStoreVersion = Integer.parseInt(snapshot.getValue().toString());
+                if(playStoreVersion == APP_VERSION){
+                    callback.isVersion(true);
+                }else{
+                    callback.isVersion(false);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        database.child("version").addListenerForSingleValueEvent(valueEventListener);
     }
 }

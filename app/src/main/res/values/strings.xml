@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Store</string>
+    <string name="app_name">ZinZali</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="shr_app_name">Tienda</string>
+    <string name="shr_app_name">Zinzali</string>
     <string name="shr_hint_username">Email</string>
     <string name="shr_hint_password">Contraseña</string>
     <string name="shr_button_next">next</string>
@@ -55,5 +55,17 @@
     <string name="address">Seleccione una ubicacion</string>
     <string name="address_add">Añadir una direccion</string>
     <string name="user_history">Mis Pedidos</string>
+    <string name="about_us">¿Quiénes somos?</string>
+    <string name="about_us_resp">ZinZali es una tienda online con un catálogo amplio de productos de las diferentes marcas que son para todos los gustos, solo descargando nuestra aplicación podrás tener la comodidad de hacer tus compras desde tu hogar, nosotros te llevamos lo que necesitas cuidando tu bioseguridad y la de tu familia.</string>
+    <string name="about_us_resp_2">Zinzali cuenta con una experiencia en ventas tradicionales y hoy en día gracias a las nuevas tecnologías damos el paso a la innovación dando la seguridad de nuestra calidad de servicio ya que el cliente es lo primero.</string>
+    <string name="about_us_resp_3">Por que el cliente es lo primero, ZinZali contará con ofertas y promociones en los diferentes productos, no te pierdas uno solo que sabemos son de tu interés.</string>
+    <string name="about_us_resp_4">Tienes planes para el fin de semana en familia o amigos, ZinZali es la aplicación correcta para armar tu actividad, encuentra una variedad de productos adecuados para cada actividad que tengas en mente y con precios realmente accesibles.</string>
+    <string name="about_us_resp_5">El método de pago que maneja ZinZali es contra entrega, pide ahora paga en la puerta de tu hogar.</string>
+    <string name="about_us_resp_6">Visita todas las categorías y arma tu carrito ideal para tu hogar, ZinZali te lo lleva hasta la puerta de tu hogar con precios realmente accesibles, disfruta, arma tu convivencia, se parte de esta nueva experiencia en Tiendas Online.</string>
+    <string name="help_improve">Ayudanos a mejorar</string>
+    <string name="contact_name">Nombres</string>
+    <string name="contact_email">Correo electrónico</string>
+    <string name="contact_phone">Telefono</string>
+    <string name="contact_message">Mensaje</string>
 
 </resources>

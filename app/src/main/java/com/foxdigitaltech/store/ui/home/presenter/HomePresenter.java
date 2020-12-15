@@ -24,6 +24,7 @@ public class HomePresenter implements HomeContract.Listener {
         interactor.verifyAccount();
     }
 
+
     @Override
     public void listCategories(List<Category> categories) {
         view.listCategories(categories);
@@ -48,5 +49,10 @@ public class HomePresenter implements HomeContract.Listener {
     @Override
     public void verifyAccount(boolean flag) {
         view.verifyAccount(flag);
+    }
+
+    @Override
+    public void isVersion(boolean valid){
+        view.isVersion(valid);
     }
 }
