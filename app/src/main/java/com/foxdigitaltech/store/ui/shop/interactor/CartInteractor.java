@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +44,7 @@ public class CartInteractor {
 
     public void start(){
         if(user != null) {
+            sendTokenNotification();
             ValueEventListener valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -132,6 +134,13 @@ public class CartInteractor {
         }else{
             listener.hasError("No se encontro el usuario.");
         }
+    }
+
+    private void sendTokenNotification(){
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(runnable -> {
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("notify/client").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            reference.child("token").setValue(runnable.getToken());
+        });
     }
 
 }

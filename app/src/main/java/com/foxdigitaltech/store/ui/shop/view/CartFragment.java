@@ -113,26 +113,20 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
         customerAddress = viewCheckOrder.findViewById(R.id.textViewCustomerAddress);
         layoutCustomerAddress = viewCheckOrder.findViewById(R.id.layoutAddress);
 
-        btnAddAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((HomeActivity)getActivity()).changeFragment(11,"cart");
-                bottomSheetDialog.cancel();
-            }
+        btnAddAddress.setOnClickListener(view -> {
+            ((HomeActivity)getActivity()).changeFragment(11,"cart");
+            bottomSheetDialog.cancel();
         });
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    presenter.checkOrder(
-                            Integer.parseInt(count.getText().toString()),
-                            Double.valueOf(total.getText().toString()),
-                            Integer.parseInt(delivery.getText().toString()),
-                            addressList.get(spinnerAddress.getSelectedItemPosition()),
-                            cartAdapter.get());
-                }catch (Exception e){
-                    hasError("Error al enviar el formulario");
-                }
+        btnOrder.setOnClickListener(view -> {
+            try {
+                presenter.checkOrder(
+                        Integer.parseInt(count.getText().toString()),
+                        Double.valueOf(total.getText().toString()),
+                        Integer.parseInt(delivery.getText().toString()),
+                        addressList.get(spinnerAddress.getSelectedItemPosition()),
+                        cartAdapter.get());
+            }catch (Exception e){
+                hasError("Error al enviar el formulario");
             }
         });
 
@@ -146,10 +140,10 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                 int d = (int) distance;
                 customerDistance.setText(d+" m.");
                 customerAddress.setText(addressList.get(i).getStreet());
-                if(distance <= 600){
+                if(distance <= 700){
                     delivery.setText("5");
                     total.setText((subTotalPrice+5)+"0");
-                }else if(distance > 600 && distance <=2000){
+                }else if(distance > 700 && distance <=2000){
                     delivery.setText("8");
                     total.setText((subTotalPrice+8)+"0");
                 }else if(distance >2000 && distance <3500){
@@ -160,13 +154,10 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                     total.setText((subTotalPrice+15)+"0");
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
-
     }
 
     @Override
@@ -229,7 +220,6 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
     @Override
     public void successOrder() {
         bottomSheetDialog.cancel();
-
         Toast customToast = new CustomToast().custom(getContext(),"success","Orden registrada correctamente");
         customToast.setDuration(Toast.LENGTH_SHORT);
         customToast.show();
@@ -272,10 +262,10 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             int d = (int) distance;
             customerDistance.setText(d+" m.");
             customerAddress.setText(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreet());
-            if(distance <= 600){
+            if(distance <= 700){
                 delivery.setText("5");
                 total.setText((subTotalPrice+5)+"0");
-            }else if(distance > 600 && distance <=2000){
+            }else if(distance > 700 && distance <=2000){
                 delivery.setText("8");
                 total.setText((subTotalPrice+8)+"0");
             }else if(distance >2000 && distance <3500){

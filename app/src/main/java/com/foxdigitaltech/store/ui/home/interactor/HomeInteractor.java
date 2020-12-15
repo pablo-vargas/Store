@@ -134,7 +134,6 @@ public class HomeInteractor {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         };
         database.child("version").addListenerForSingleValueEvent(valueEventListener);
