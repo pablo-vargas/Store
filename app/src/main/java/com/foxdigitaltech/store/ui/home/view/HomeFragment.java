@@ -34,6 +34,7 @@ import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -143,7 +144,7 @@ public class HomeFragment extends Fragment implements HomeFragmentContract.View,
 
     @Override
     public void addCart(Product product) {
-        if(viewModel.getUserAuth().getValue()){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
             if(product.getBadge().equals("sale")){
                 Toast customToast = new CustomToast().custom(getContext(),"warning",product.getName()+" se ha agotado");
                 customToast.setDuration(Toast.LENGTH_SHORT);

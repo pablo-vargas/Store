@@ -1,5 +1,6 @@
 package com.foxdigitaltech.store.ui.home.presenter;
 
+import com.foxdigitaltech.store.shared.model.PriceDelivery;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
 import com.foxdigitaltech.store.ui.home.interactor.HomeInteractor;
 import com.foxdigitaltech.store.shared.model.Category;
@@ -38,6 +39,11 @@ public class HomePresenter implements HomeContract.Listener {
     @Override
     public void listBestSellers(List<Product> products) {
         view.listBestSellers(products);
+    }
+
+    @Override
+    public void listPrice(List<PriceDelivery> priceDeliveries) {
+        view.listPrice(priceDeliveries);
     }
 
     @Override

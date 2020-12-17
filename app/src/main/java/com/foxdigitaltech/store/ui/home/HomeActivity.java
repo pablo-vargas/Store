@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.foxdigitaltech.store.R;
+import com.foxdigitaltech.store.shared.model.PriceDelivery;
 import com.foxdigitaltech.store.ui.account.view.UserHistoryFragment;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
 import com.foxdigitaltech.store.shared.model.Category;
@@ -143,6 +144,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
     @Override
     public void listOffers(List<Product> products) {
         listOffers = products;
+    }
+
+    @Override
+    public void listPrice(List<PriceDelivery> priceDeliveries) {
+        viewModel.serPrice(priceDeliveries);
     }
 
     @Override

@@ -46,6 +46,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -216,7 +217,7 @@ public class ProductsFragment extends Fragment implements ProductsContract.View,
 
     @Override
     public void addCart(Product product) {
-        if(viewModel.getUserAuth().getValue()){
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
             if(product.getBadge().equals("sale")){
                 //Toast toast =  Toast.makeText(getContext(),R.string.product_sale,Toast.LENGTH_SHORT);
                 Toast customToast = new CustomToast().custom(getContext(),"warning",product.getName()+" se ha agotado");

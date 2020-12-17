@@ -8,12 +8,14 @@ public class Category {
     private String name;
     private String detail;
     private String image;
+    private String slug;
 
-    public Category(String key, String name, String detail, String image) {
+    public Category(String key, String name, String detail, String image,String slug) {
         this.key = key;
         this.name = name;
         this.detail = detail;
         this.image = image;
+        this.slug = slug;
     }
 
     public Category(DataSnapshot snapshot){
@@ -21,6 +23,7 @@ public class Category {
         this.detail = snapshot.child("detail").getValue().toString();
         this.name =  snapshot.child("name").getValue().toString();
         this.image =  snapshot.child("image").getValue().toString();
+        this.slug = snapshot.child("slug").getValue().toString();
     }
 
     public String getKey() {
@@ -53,5 +56,13 @@ public class Category {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

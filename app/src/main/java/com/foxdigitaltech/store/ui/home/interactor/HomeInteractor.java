@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.foxdigitaltech.store.shared.model.PriceDelivery;
 import com.foxdigitaltech.store.ui.home.contract.HomeContract;
 import com.foxdigitaltech.store.shared.model.Category;
 import com.foxdigitaltech.store.shared.model.Product;
@@ -37,6 +38,7 @@ public class HomeInteractor {
         categories();
         offers();
         bestSellers();
+        price();
     }
     public void verifyAccount(){
         FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -137,5 +139,23 @@ public class HomeInteractor {
             }
         };
         database.child("version").addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    private void price(){
+        final ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<PriceDelivery> priceDeliveries = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    priceDeliveries.add(new PriceDelivery(dataSnapshot));
+                }
+                callback.listPrice(priceDeliveries);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERRORDATABASE1",error.getMessage());
+            }
+        };
+        database.child("price").addValueEventListener(listener);
     }
 }

@@ -12,10 +12,11 @@ public class Order {
     private int quantity;
     private int delivery;
     private Double total;
+    private Double subTotal;
     private Long createAt;
     private String status;
 
-    public Order(UserProfile user, List<ProductCart> products, Address address, int quantity, int delivery, Double total, Long createAt,String status) {
+    public Order(UserProfile user, List<ProductCart> products, Address address, int quantity, int delivery, Double total, Long createAt,String status,Double subTotal) {
         this.user = user;
         this.products = products;
         this.address = address;
@@ -24,6 +25,7 @@ public class Order {
         this.total = total;
         this.createAt = createAt;
         this.status = status;
+        this.subTotal = subTotal;
     }
 
 
@@ -31,6 +33,13 @@ public class Order {
     public Order() {
     }
 
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
+    }
 
     public String getStatus() {
         return status;
@@ -103,4 +112,6 @@ public class Order {
     public void setCreateAt(Long createAt) {
         this.createAt = createAt;
     }
+
+
 }

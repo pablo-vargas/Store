@@ -78,7 +78,7 @@ public class ProductsInteractor {
 
             }
         };
-        databaseReference.child(routeDatabase.LIST_PRODUCTS).child(category.getName()).addListenerForSingleValueEvent(valueEventListener);
+        databaseReference.child(routeDatabase.LIST_PRODUCTS).child(category.getSlug()).addListenerForSingleValueEvent(valueEventListener);
     }
     private void getBrands(Category category){
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -96,6 +96,6 @@ public class ProductsInteractor {
 
             }
         };
-        databaseReference.child(routeDatabase.LIST_BRANDS).child(category.getName()).addListenerForSingleValueEvent(valueEventListener);
+        databaseReference.child(routeDatabase.LIST_BRANDS).child(category.getSlug()).addListenerForSingleValueEvent(valueEventListener);
     }
 }

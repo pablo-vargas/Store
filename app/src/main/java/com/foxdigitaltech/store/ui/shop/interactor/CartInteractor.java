@@ -107,7 +107,7 @@ public class CartInteractor {
                     listener.hasError("Debe verificar su numero de telefono, perfil inválido");
                 }else{
                     UserProfile userProfile = new UserProfile(user.getDisplayName(),"",user.getPhoneNumber(),user.getEmail());
-                    Order order = new Order(userProfile,productCarts,address,quantity,delivery,total,new Date().getTime(),"pending");
+                    Order order = new Order(userProfile,productCarts,address,quantity,delivery,total,new Date().getTime(),"pending",(total-delivery));
                     databaseReference.child(routeDatabase.CREATE_ORDER).child(user.getUid()).push().setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

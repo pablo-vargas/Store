@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +22,10 @@ import android.widget.Toast;
 import com.foxdigitaltech.store.R;
 import com.foxdigitaltech.store.shared.CustomToast;
 import com.foxdigitaltech.store.shared.model.Address;
+import com.foxdigitaltech.store.shared.model.PriceDelivery;
 import com.foxdigitaltech.store.shared.model.ProductCart;
 import com.foxdigitaltech.store.ui.home.HomeActivity;
+import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
 import com.foxdigitaltech.store.ui.shop.contract.CartContract;
 import com.foxdigitaltech.store.ui.shop.presenter.CartPresenter;
 import com.foxdigitaltech.store.ui.shop.view.adapter.ShoppingCartAdapter;
@@ -42,6 +45,8 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
     LinearLayout layoutLoader;
     TextView cartEmpty;
     MaterialButton btnCheckOrder;
+
+    HomeViewModel viewModel;
 
     List<Address> addressList;
     View viewCheckOrder;
@@ -70,6 +75,7 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+        viewModel = new ViewModelProvider(getActivity()).get(HomeViewModel.class);
         locationStore.setLatitude(-19.05163);
         locationStore.setLongitude(-65.26676);
         init(view);
@@ -140,18 +146,11 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
                 int d = (int) distance;
                 customerDistance.setText(d+" m.");
                 customerAddress.setText(addressList.get(i).getStreet());
-                if(distance <= 700){
-                    delivery.setText("5");
-                    total.setText((subTotalPrice+5)+"0");
-                }else if(distance > 700 && distance <=2000){
-                    delivery.setText("8");
-                    total.setText((subTotalPrice+8)+"0");
-                }else if(distance >2000 && distance <3500){
-                    delivery.setText("12");
-                    total.setText((subTotalPrice+12)+"0");
-                }else {
-                    delivery.setText("15");
-                    total.setText((subTotalPrice+15)+"0");
+                for (PriceDelivery priceDelivery : viewModel.getListPrice().getValue()){
+                    if(distance >= priceDelivery.getStart() && distance < priceDelivery.getEnd()){
+                        delivery.setText(""+priceDelivery.getPrice());
+                        total.setText((subTotalPrice+priceDelivery.getPrice())+"0");
+                    }
                 }
             }
             @Override
@@ -262,18 +261,11 @@ public class CartFragment extends Fragment implements ShoppingCartAdapter.Listen
             int d = (int) distance;
             customerDistance.setText(d+" m.");
             customerAddress.setText(addressList.get(spinnerAddress.getSelectedItemPosition()).getStreet());
-            if(distance <= 700){
-                delivery.setText("5");
-                total.setText((subTotalPrice+5)+"0");
-            }else if(distance > 700 && distance <=2000){
-                delivery.setText("8");
-                total.setText((subTotalPrice+8)+"0");
-            }else if(distance >2000 && distance <3500){
-                delivery.setText("12");
-                total.setText((subTotalPrice+12)+"0");
-            }else {
-                delivery.setText("15");
-                total.setText((subTotalPrice+15)+"0");
+            for (PriceDelivery priceDelivery : viewModel.getListPrice().getValue()){
+                if(distance >= priceDelivery.getStart() && distance < priceDelivery.getEnd()){
+                    delivery.setText(""+priceDelivery.getPrice());
+                    total.setText((subTotalPrice+priceDelivery.getPrice())+"0");
+                }
             }
         }else{
             btnOrder.setEnabled(false);

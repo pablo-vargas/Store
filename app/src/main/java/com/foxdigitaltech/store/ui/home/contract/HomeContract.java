@@ -1,6 +1,7 @@
 package com.foxdigitaltech.store.ui.home.contract;
 
 import com.foxdigitaltech.store.shared.model.Category;
+import com.foxdigitaltech.store.shared.model.PriceDelivery;
 import com.foxdigitaltech.store.shared.model.Product;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public interface HomeContract {
         void successData();
         void listCategories(List<Category> categories);
         void listOffers(List<Product> products);
+        void listPrice(List<PriceDelivery> priceDeliveries);
         void listBestSellers(List<Product> products);
         void verifyAccount(boolean flag);
 
@@ -22,6 +24,7 @@ public interface HomeContract {
         void listCategories(List<Category> categories);
         void listOffers(List<Product> products);
         void listBestSellers(List<Product> products);
+        void listPrice(List<PriceDelivery> priceDeliveries);
         void successData();
         void verifyAccount(boolean flag);
 
