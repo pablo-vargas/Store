@@ -1,5 +1,6 @@
 package com.foxdigitaltech.store.ui.home.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,11 +16,12 @@ import com.foxdigitaltech.store.ui.home.HomeActivity;
 import com.foxdigitaltech.store.ui.home.contract.ProfileContract;
 import com.foxdigitaltech.store.ui.home.presenter.ProfilePresenter;
 import com.foxdigitaltech.store.ui.home.viewmodel.HomeViewModel;
+import com.foxdigitaltech.store.ui.notify.NotifyActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class AccountProfileFragment extends Fragment implements ProfileContract.View {
 
-    MaterialCardView cardPhoneVerified,cardPhoneInvalid,cardProfile,cardAddress,cardRecord,cardExit;
+    MaterialCardView cardPhoneVerified,cardPhoneInvalid,cardProfile,cardAddress,cardRecord,cardExit,cardNotify;
     TextView textViewName;
 
     ProfilePresenter presenter;
@@ -46,6 +48,8 @@ public class AccountProfileFragment extends Fragment implements ProfileContract.
         cardPhoneVerified = view.findViewById(R.id.cardPhoneVerified);
         cardRecord = view.findViewById(R.id.cardRecord);
         cardProfile = view.findViewById(R.id.cardUpdateProfile);
+        cardNotify = view.findViewById(R.id.cardNotify);
+
         textViewName = view.findViewById(R.id.textViewName);
 
 
@@ -87,6 +91,12 @@ public class AccountProfileFragment extends Fragment implements ProfileContract.
             @Override
             public void onClick(View view) {
                 ((HomeActivity)getActivity()).changeFragment(14,"profile");
+            }
+        });
+        cardNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent(getActivity(), NotifyActivity.class));
             }
         });
     }

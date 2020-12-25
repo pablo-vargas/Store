@@ -96,7 +96,7 @@ public class ContactFragment extends Fragment implements OnMapReadyCallback, Con
         });
         btnWhatsApp.setOnClickListener(v->{
 
-            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=59178675978");
+            Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=59172886043");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         });

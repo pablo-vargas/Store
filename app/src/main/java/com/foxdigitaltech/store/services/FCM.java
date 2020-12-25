@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
 import com.foxdigitaltech.store.R;
-import com.foxdigitaltech.store.ui.home.HomeActivity;
+import com.foxdigitaltech.store.ui.notify.NotifyActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -77,7 +77,7 @@ public class FCM extends FirebaseMessagingService {
     }
 
     private PendingIntent notificar(String code){
-        Intent home =  new Intent(getApplicationContext(), HomeActivity.class);
+        Intent home =  new Intent(getApplicationContext(), NotifyActivity.class);
         home.putExtra("token",code);
         return PendingIntent.getActivity(this,0,home,0);
     }

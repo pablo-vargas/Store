@@ -67,5 +67,6 @@
     <string name="contact_email">Correo electrónico</string>
     <string name="contact_phone">Telefono</string>
     <string name="contact_message">Mensaje</string>
+    <string name="notify">Notificaciones</string>
 
 </resources>

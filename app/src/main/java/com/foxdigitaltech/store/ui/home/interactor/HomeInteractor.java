@@ -25,7 +25,7 @@ public class HomeInteractor {
     private FirebaseAuth firebaseAuth;
     private HomeContract.Listener callback;
     private int countData;
-    private static final int APP_VERSION =1;
+    private static final int APP_VERSION =2;
 
     public HomeInteractor(HomeContract.Listener callback) {
         this.callback = callback;

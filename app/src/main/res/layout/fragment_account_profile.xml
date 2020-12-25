@@ -236,6 +236,37 @@
 
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNotify"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginVertical="10dp"
+                android:checkable="true"
+                android:layout_marginHorizontal="50dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:drawableStart="@drawable/ic_baseline_notifications_active_24"
+                        android:paddingHorizontal="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notify"
+                        android:textSize="14sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardRecord"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"

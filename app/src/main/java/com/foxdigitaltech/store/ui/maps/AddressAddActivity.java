@@ -204,7 +204,7 @@ public class AddressAddActivity extends AppCompatActivity  implements OnMapReady
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     if (gpsActived()) {
                         fusedLocationProviderClient.requestLocationUpdates(locationRequest, mLocationCallback, Looper.myLooper());
-                         map.setMyLocationEnabled(true);
+                         //map.setMyLocationEnabled(true);
                     }
                     else {
                         showAlertDialogNOGPS();
